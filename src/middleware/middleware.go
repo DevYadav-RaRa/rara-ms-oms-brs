@@ -1,0 +1,41 @@
+package middleware
+
+import (
+	"encoding/json"
+	"fmt"
+
+	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/framework"
+	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/models"
+	routing "github.com/qiangxue/fasthttp-routing"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+)
+
+func init() {
+	appCtx := framework.GetCurrentAppContext()
+
+	appCtx.Router.Get("/SampleObject1/accnt-<id:[^/]*>", func(c *routing.Context) error {
+
+		x := models.SampleObject1{}
+		var err error
+		x.Id, err = primitive.ObjectIDFromHex(c.Param("id"))
+		if err != nil {
+			fmt.Fprintf(c, "Not a valid id")
+		}
+		b, err := json.Marshal(&x)
+		fmt.Fprintf(c, string(b))
+		return nil
+	})
+
+	appCtx.Router.Post("/SampleObject1/accnt-<object:[^/]*>", func(c *routing.Context) error {
+
+		in := []byte(c.Param("id"))
+
+		var object1 models.SampleObject1
+		err := json.Unmarshal(in, &object1)
+		if err != nil {
+			fmt.Fprintf(c, "Not a valid object")
+		}
+		object1.Save()
+		return nil
+	})
+}
