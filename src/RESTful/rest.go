@@ -1,17 +1,12 @@
 package RESTful
 
 // import (
-// 	"log"
-
 // 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/framework"
 // 	routing "github.com/go-ozzo/ozzo-routing"
-// 	"github.com/go-ozzo/ozzo-routing/access"
-// 	"github.com/go-ozzo/ozzo-routing/content"
-// 	"github.com/go-ozzo/ozzo-routing/fault"
 // 	"github.com/go-ozzo/ozzo-routing/file"
-// 	"github.com/go-ozzo/ozzo-routing/slash"
 // 	"github.com/valyala/fasthttp"
 // )
+
 // /*with auth query
 // batch(...)
 // batches(...)
@@ -29,11 +24,9 @@ package RESTful
 // 	appCtx := framework.GetCurrentAppContext()
 // 	router := appCtx.Router
 
-
-
 // 	// serve RESTful APIs
 // 	api := router.Group("/api")
-	
+
 // 	api.Get("/SampleObject1{id}", func(c *routing.Context) error {
 // 		return c.Write("user list")
 // 	})
@@ -51,22 +44,21 @@ package RESTful
 // 		"/": "/ui/",
 // 	}))
 
-
-// // the corresponding fasthttp code
-// m := func(ctx *fasthttp.RequestCtx) {
-// 	switch string(ctx.Path()) {
-// 	case "/foo":
-// 		fooHandlerFunc(ctx)
-// 	case "/bar":
-// 		barHandlerFunc(ctx)
-// 	case "/baz":
-// 		bazHandler.HandlerFunc(ctx)
-// 	default:
-// 		ctx.Error("not found", fasthttp.StatusNotFound)
+// 	// the corresponding fasthttp code
+// 	m := func(ctx *fasthttp.RequestCtx) {
+// 		switch string(ctx.Path()) {
+// 		case "/foo":
+// 			fooHandlerFunc(ctx)
+// 		case "/bar":
+// 			barHandlerFunc(ctx)
+// 		case "/baz":
+// 			bazHandler.HandlerFunc(ctx)
+// 		default:
+// 			ctx.Error("not found", fasthttp.StatusNotFound)
+// 		}
 // 	}
-// }
 
-// fasthttp.ListenAndServe(":80", m)
+// 	fasthttp.ListenAndServe(":80", m)
 
 // 	fasthttp.ListenAndServe(":8080", router.HandleRequest)
 

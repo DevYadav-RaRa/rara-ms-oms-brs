@@ -11,7 +11,7 @@ func TestBatchPopulationFromJSON(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	Object1 := SampleObject1{}
+	Object1 := OrderObject{}
 	err = Object1.FromJSONString(string(b))
 	if err != nil {
 		t.Error(err)

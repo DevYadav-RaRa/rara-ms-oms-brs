@@ -11,7 +11,7 @@ import (
 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/models"
 )
 
-func Produce(obj models.SampleObject1) string {
+func Produce(obj models.OrderObject) string {
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()

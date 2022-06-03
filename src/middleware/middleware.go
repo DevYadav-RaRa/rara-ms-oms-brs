@@ -13,11 +13,11 @@ import (
 func init() {
 	appCtx := framework.GetCurrentAppContext()
 
-	appCtx.Router.Get("/SampleObject1/accnt-<id:[^/]*>", func(c *routing.Context) error {
+	appCtx.Router.Get("/OrderObject/accnt-<id:[^/]*>", func(c *routing.Context) error {
 
-		x := models.SampleObject1{}
+		x := models.OrderObject{}
 		var err error
-		x.Id, err = primitive.ObjectIDFromHex(c.Param("id"))
+		x.OrderDetails.OrderId, err = primitive.ObjectIDFromHex(c.Param("id"))
 		if err != nil {
 			fmt.Fprintf(c, "Not a valid id")
 		}
@@ -26,11 +26,11 @@ func init() {
 		return nil
 	})
 
-	appCtx.Router.Post("/SampleObject1/accnt-<object:[^/]*>", func(c *routing.Context) error {
+	appCtx.Router.Post("/OrderObject/accnt-<object:[^/]*>", func(c *routing.Context) error {
 
 		in := []byte(c.Param("id"))
 
-		var object1 models.SampleObject1
+		var object1 models.OrderObject
 		err := json.Unmarshal(in, &object1)
 		if err != nil {
 			fmt.Fprintf(c, "Not a valid object")
