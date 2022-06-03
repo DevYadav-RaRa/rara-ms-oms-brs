@@ -1,4 +1,4 @@
-# rara-ms-bms
+# rara-ms-oms-brs
 Batching Management Microservice
 
 ### How To Build
