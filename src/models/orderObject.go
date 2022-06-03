@@ -8,9 +8,9 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-const db_name = "bms"
+const db_name = "oms"
 
-const collection_name = "batches"
+const collection_name = "orders"
 
 type OrderObject struct {
 	TenantToken     string
@@ -152,6 +152,22 @@ type Webhook struct {
 }
 
 type Header struct {
+	header string
+}
+
+func (obj *OrderObject) GetIamAuthentication(header string) ImResponse {
+	var reqObj Request
+	reqObj.TenantToken = obj.TenantToken
+	reqObj.BusinessDetails = obj.BusinessDetails
+
+	// Call IM using Request struct and headers
+	// Get response in the form of ImResponse struct
+
+	// ONLY FOR TESTING PURPOSES
+	responseObj := reqObj.GetImResponse(header)
+	// ONLY FOR TESTING PURPOSES
+
+	return responseObj
 }
 
 func (obj *OrderObject) Insert() (error, bool) {
