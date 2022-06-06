@@ -7,15 +7,19 @@ import (
 )
 
 func PostOrder(order models.OrderObject, header string) (string, bool) {
+	fmt.Println("Calling Iam for Authentication")
 	IamAuth := order.GetIamAuthentication(header)
-
+	fmt.Println("Iam Response: ", IamAuth)
+	fmt.Println("Authenticated from Iam")
 	if IamAuth.Status {
 		order.OrderDetails.Status = "Processing"
 		// 	Save mongo
-		err, status := order.Insert()
-		if err != nil {
-			return err.Error(), status
-		}
+		fmt.Println("Inserting to MongoDb")
+		fmt.Println("Inserted to MongoDb")
+		// err, status := order.Insert()
+		// if err != nil {
+		// 	return err.Error(), status
+		// }
 		// 	Send it to the queue -> Order acceptence
 		fmt.Println("Pushing to Queue")
 		fmt.Println("Pushed to Queue")

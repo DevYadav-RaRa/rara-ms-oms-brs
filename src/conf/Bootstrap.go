@@ -9,32 +9,32 @@ import (
 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/models"
 )
 
-func TestBatchCreation() {
-	b, err := ioutil.ReadFile("./payload.json") // just pass the file name
+func Testing() {
+	b, err := ioutil.ReadFile("./src/conf/api.json")
 	if err != nil {
-		fmt.Print("Bootstrap error 1", err)
+		fmt.Print("Bootstrap error: ", err)
 		return
 	}
-	fmt.Println(string(b), "Hello")
-	fmt.Println(string(b))
-
+	// fmt.Println(string(b))
+	var demoApi models.ApiPayload
+	demoApi.FromJSONString(string(b))
+	fmt.Println("-------------------------------------------")
+	fmt.Println("-------------------------------------------")
+	fmt.Println("-------------------------------------------")
+	for i := range demoApi.Orders {
+		var temp models.OrderObject
+		temp.TenantToken = demoApi.TenantToken
+		temp.BusinessDetails = demoApi.BusinessDetails
+		temp.Order = demoApi.Orders[i]
+		status, resp := helpers.PostOrder(temp, "Business Header")
+		fmt.Println(status, " :: ", resp)
+		fmt.Println("-------------------------------------------")
+		fmt.Println("-------------------------------------------")
+	}
 }
 
 func Bootstrap(appCtx framework.Framework) {
 	fmt.Println("Running Bootstrap...")
-
-	// test if S2 Geo is available else exit with error
-	// testS2GeometryOnBoot(appCtx)
-	// start listening to queue
-	//startSQSConsumer(appCtx)
-	// testSQSProducer()
-	// inserting demo data..
-	// insertDefault(appCtx)
-	//TestBatchCreation()
-	var demo models.OrderObject
-	err, status := helpers.PostOrder(demo, "Business headers")
-	if !status {
-		fmt.Println("MongoDb Error :", err)
-	}
+	Testing()
 	fmt.Println("App is ready!")
 }

@@ -1,5 +1,10 @@
 package models
 
+import (
+	"fmt"
+	"time"
+)
+
 type ImResponse struct {
 	Status             bool
 	BusinessValidation BusinessValidation
@@ -26,12 +31,12 @@ func (requestObject *Request) GetImResponse(header string) ImResponse {
 	respObj.Webhook.Url = "webhookUrl"
 	respObj.Webhook.Payload = "payloadString"
 
-	// now := time.Now()
-	// nowNano := now.Nanosecond()
-	// fmt.Println(nowNano)
-	// respObj.Status = now.UnixNano()%2 == 0
+	now := time.Now()
+	nowNano := now.Nanosecond()
+	fmt.Println(nowNano)
+	respObj.Status = now.UnixNano()%2 == 0
 
-	respObj.Status = true
+	// respObj.Status = true
 
 	return respObj
 }

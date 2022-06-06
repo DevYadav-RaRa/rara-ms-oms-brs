@@ -1,0 +1,359 @@
+{
+  "tenantToken": "",
+  "businessDetails": {
+    "businessName": "",
+    "accountNumber": "",
+    "serviceType": "",
+    "serviceId": ""
+  },
+  "Orders": [
+    {
+      "trackingId": "1",
+      "orderDetails": {
+        "status": "",
+        "orderId": "",
+        "pieceId": "",
+        "deliveryFee": 0,
+        "orderDeliveryDetails": {
+          "orderDate": "",
+          "pickupDate": "",
+          "dlSla": 0,
+          "orderDistance": 0,
+          "linehaul": "",
+          "specialHandling": ""
+        },
+        "orderDimensionDetails": {
+          "weight": 0,
+          "dimensions": {
+            "length": 0,
+            "width": 0,
+            "height": 0
+          },
+          "volWeight": 0
+        },
+        "batchDetails": {
+          "batchCreationTime": "",
+          "batchId": "",
+          "orderCancelledTime": "",
+          "orderCancelReason": "",
+          "orderReturnedTime": ""
+        }
+      },
+      "pickupDetails": {
+        "senderName": "",
+        "senderPhone": "",
+        "locationDetails": {
+          "locationName": "",
+          "address": "",
+          "subDistrict": "",
+          "district": "",
+          "city": "",
+          "postalCode": "",
+          "geoPoint": {
+            "lat": 0,
+            "lng": 0
+          },
+          "type": "Home, Office, Mall",
+          "province": "PK - DEPOK"
+        },
+        "packageInchargeName": "",
+        "expectedPuDate&Time": "",
+        "Slot": "Slot 1, Slot 2, Slot 3",
+        "Note": {
+          "Message": ""
+        }
+      },
+      "dropoffDetails": {
+        "recipient": {
+          "name": "",
+          "phone": "",
+          "email": ""
+        },
+        "locationDetails": {
+          "locationName": "",
+          "address": "",
+          "subDistrict": "",
+          "district": "Pasar Rebo",
+          "city": "",
+          "postalCode": "",
+          "geoPoint": {
+            "lat": 0,
+            "lng": 0
+          },
+          "addressType": "Home, Office, Mall",
+          "province": "DO - TIMUR"
+        },
+        "reqDlTime": "",
+        "Note": {
+          "Message": ""
+        }
+      },
+      "packageDetails": {
+        "packageSize": "Small",
+        "packageDescription": "",
+        "packageValue": "",
+        "numberofPiece": 3,
+        "dimensions": {
+          "length": 0,
+          "width": 0,
+          "height": 0
+        },
+        "volWeight": 0,
+        "billableWeight": 0,
+        "weightIndex": 0
+      },
+      "paymentDetails": {
+        "paymentMethod": "COD",
+        "price": 0
+      },
+      "items": [
+        {
+          "orderId": "",
+          "pieceId": "",
+          "weight": 0,
+          "dimensions": {
+            "length": 0,
+            "width": 0,
+            "height": 0
+          },
+          "volWeight": 0,
+          "billableWeight": 0,
+          "weightIndex": 0,
+          "price": 0
+        }
+      ]
+    },
+    {
+        "trackingId": "2",
+        "orderDetails": {
+          "status": "",
+          "orderId": "",
+          "pieceId": "",
+          "deliveryFee": 0,
+          "orderDeliveryDetails": {
+            "orderDate": "",
+            "pickupDate": "",
+            "dlSla": 0,
+            "orderDistance": 0,
+            "linehaul": "",
+            "specialHandling": ""
+          },
+          "orderDimensionDetails": {
+            "weight": 0,
+            "dimensions": {
+              "length": 0,
+              "width": 0,
+              "height": 0
+            },
+            "volWeight": 0
+          },
+          "batchDetails": {
+            "batchCreationTime": "",
+            "batchId": "",
+            "orderCancelledTime": "",
+            "orderCancelReason": "",
+            "orderReturnedTime": ""
+          }
+        },
+        "pickupDetails": {
+          "senderName": "",
+          "senderPhone": "",
+          "locationDetails": {
+            "locationName": "",
+            "address": "",
+            "subDistrict": "",
+            "district": "",
+            "city": "",
+            "postalCode": "",
+            "geoPoint": {
+              "lat": 0,
+              "lng": 0
+            },
+            "type": "Home, Office, Mall",
+            "province": "PK - DEPOK"
+          },
+          "packageInchargeName": "",
+          "expectedPuDate&Time": "",
+          "Slot": "Slot 1, Slot 2, Slot 3",
+          "Note": {
+            "Message": ""
+          }
+        },
+        "dropoffDetails": {
+          "recipient": {
+            "name": "",
+            "phone": "",
+            "email": ""
+          },
+          "locationDetails": {
+            "locationName": "",
+            "address": "",
+            "subDistrict": "",
+            "district": "Pasar Rebo",
+            "city": "",
+            "postalCode": "",
+            "geoPoint": {
+              "lat": 0,
+              "lng": 0
+            },
+            "addressType": "Home, Office, Mall",
+            "province": "DO - TIMUR"
+          },
+          "reqDlTime": "",
+          "Note": {
+            "Message": ""
+          }
+        },
+        "packageDetails": {
+          "packageSize": "Small",
+          "packageDescription": "",
+          "packageValue": "",
+          "numberofPiece": 3,
+          "dimensions": {
+            "length": 0,
+            "width": 0,
+            "height": 0
+          },
+          "volWeight": 0,
+          "billableWeight": 0,
+          "weightIndex": 0
+        },
+        "paymentDetails": {
+          "paymentMethod": "COD",
+          "price": 0
+        },
+        "items": [
+          {
+            "orderId": "",
+            "pieceId": "",
+            "weight": 0,
+            "dimensions": {
+              "length": 0,
+              "width": 0,
+              "height": 0
+            },
+            "volWeight": 0,
+            "billableWeight": 0,
+            "weightIndex": 0,
+            "price": 0
+          }
+        ]
+      },
+      {
+        "trackingId": "3",
+        "orderDetails": {
+          "status": "",
+          "orderId": "",
+          "pieceId": "",
+          "deliveryFee": 0,
+          "orderDeliveryDetails": {
+            "orderDate": "",
+            "pickupDate": "",
+            "dlSla": 0,
+            "orderDistance": 0,
+            "linehaul": "",
+            "specialHandling": ""
+          },
+          "orderDimensionDetails": {
+            "weight": 0,
+            "dimensions": {
+              "length": 0,
+              "width": 0,
+              "height": 0
+            },
+            "volWeight": 0
+          },
+          "batchDetails": {
+            "batchCreationTime": "",
+            "batchId": "",
+            "orderCancelledTime": "",
+            "orderCancelReason": "",
+            "orderReturnedTime": ""
+          }
+        },
+        "pickupDetails": {
+          "senderName": "",
+          "senderPhone": "",
+          "locationDetails": {
+            "locationName": "",
+            "address": "",
+            "subDistrict": "",
+            "district": "",
+            "city": "",
+            "postalCode": "",
+            "geoPoint": {
+              "lat": 0,
+              "lng": 0
+            },
+            "type": "Home, Office, Mall",
+            "province": "PK - DEPOK"
+          },
+          "packageInchargeName": "",
+          "expectedPuDate&Time": "",
+          "Slot": "Slot 1, Slot 2, Slot 3",
+          "Note": {
+            "Message": ""
+          }
+        },
+        "dropoffDetails": {
+          "recipient": {
+            "name": "",
+            "phone": "",
+            "email": ""
+          },
+          "locationDetails": {
+            "locationName": "",
+            "address": "",
+            "subDistrict": "",
+            "district": "Pasar Rebo",
+            "city": "",
+            "postalCode": "",
+            "geoPoint": {
+              "lat": 0,
+              "lng": 0
+            },
+            "addressType": "Home, Office, Mall",
+            "province": "DO - TIMUR"
+          },
+          "reqDlTime": "",
+          "Note": {
+            "Message": ""
+          }
+        },
+        "packageDetails": {
+          "packageSize": "Small",
+          "packageDescription": "",
+          "packageValue": "",
+          "numberofPiece": 3,
+          "dimensions": {
+            "length": 0,
+            "width": 0,
+            "height": 0
+          },
+          "volWeight": 0,
+          "billableWeight": 0,
+          "weightIndex": 0
+        },
+        "paymentDetails": {
+          "paymentMethod": "COD",
+          "price": 0
+        },
+        "items": [
+          {
+            "orderId": "",
+            "pieceId": "",
+            "weight": 0,
+            "dimensions": {
+              "length": 0,
+              "width": 0,
+              "height": 0
+            },
+            "volWeight": 0,
+            "billableWeight": 0,
+            "weightIndex": 0,
+            "price": 0
+          }
+        ]
+      }
+  ]
+}
