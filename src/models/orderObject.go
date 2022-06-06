@@ -178,19 +178,23 @@ func (obj *OrderObject) Insert() (error, bool) {
 		return err, false
 	}
 
-	// obj.OrderDetails.OrderId = primitive.NewObjectID()
-
+	obj.OrderDetails.OrderId = primitive.NewObjectID()
+	fmt.Println("OrderObject: ", obj)
 	doc, err := toDoc(obj)
 	if err != nil {
 		appCtx.Error(err)
 		return err, false
 	}
+
+	fmt.Println("collection_name: ", collection_name)
+	fmt.Println("doc: ", doc)
+	fmt.Println("ctx: ", ctx)
 	res, err := db.Collection(collection_name).InsertOne(ctx, doc)
+	fmt.Println("res: ", res)
 	if err != nil {
 		appCtx.Error(err)
 		return err, false
 	}
-	fmt.Println(res)
 	// obj.OrderDetails.OrderId = res.InsertedID.(primitive.ObjectID)
 
 	return nil, true

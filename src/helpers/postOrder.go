@@ -6,7 +6,7 @@ import (
 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/models"
 )
 
-func postOrder(order models.OrderObject, header string) (string, bool) {
+func PostOrder(order models.OrderObject, header string) (string, bool) {
 	IamAuth := order.GetIamAuthentication(header)
 
 	if IamAuth.Status {

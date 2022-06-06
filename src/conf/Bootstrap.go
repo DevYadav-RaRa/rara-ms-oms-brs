@@ -5,6 +5,8 @@ import (
 	"io/ioutil"
 
 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/framework"
+	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/helpers"
+	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/models"
 )
 
 func TestBatchCreation() {
@@ -29,5 +31,10 @@ func Bootstrap(appCtx framework.Framework) {
 	// inserting demo data..
 	// insertDefault(appCtx)
 	//TestBatchCreation()
+	var demo models.OrderObject
+	err, status := helpers.PostOrder(demo, "Business headers")
+	if !status {
+		fmt.Println("MongoDb Error :", err)
+	}
 	fmt.Println("App is ready!")
 }
