@@ -1,81 +1,54 @@
 {
-  "tenantToken": "",
+  "tenantToken": "1223",
   "businessDetails": {
-    "businessName": "",
-    "accountNumber": "",
-    "serviceType": "",
-    "serviceId": ""
+    "businessName": "Dev Org.",
+    "accountNumber": "236548",
+    "serviceType": "Testing",
+    "serviceId": "01"
   },
-  "Orders": [
+  "orders": [
     {
       "trackingId": "1",
-      "orderDetails": {
-        "status": "",
-        "orderId": "",
-        "pieceId": "",
-        "deliveryFee": 0,
-        "orderDeliveryDetails": {
-          "orderDate": "",
-          "pickupDate": "",
-          "dlSla": 0,
-          "orderDistance": 0,
-          "linehaul": "",
-          "specialHandling": ""
-        },
-        "orderDimensionDetails": {
-          "weight": 0,
-          "dimensions": {
-            "length": 0,
-            "width": 0,
-            "height": 0
-          },
-          "volWeight": 0
-        },
-        "batchDetails": {
-          "batchCreationTime": "",
-          "batchId": "",
-          "orderCancelledTime": "",
-          "orderCancelReason": "",
-          "orderReturnedTime": ""
-        }
-      },
       "pickupDetails": {
-        "senderName": "",
-        "senderPhone": "",
+        "senderDetails": {
+          "name": "esdfg",
+          "phone": "2345",
+          "email": "sdfg"
+        },
         "locationDetails": {
-          "locationName": "",
-          "address": "",
-          "subDistrict": "",
-          "district": "",
-          "city": "",
-          "postalCode": "",
+          "locationName": "asfd",
+          "address": "wadsf",
+          "subDistrict": "afsd",
+          "district": "wadfsb",
+          "city": "afds",
+          "postalCode": "2345",
           "geoPoint": {
             "lat": 0,
             "lng": 0
           },
-          "type": "Home, Office, Mall",
+          "addressType": "Home, Office, Mall",
           "province": "PK - DEPOK"
         },
-        "packageInchargeName": "",
-        "expectedPuDate&Time": "",
-        "Slot": "Slot 1, Slot 2, Slot 3",
-        "Note": {
-          "Message": ""
+        "packageInchargeName": "asdfv",
+        "expectedPuDate&Time": "asdf",
+        "slot": "slot 1, slot 2, slot 3",
+        "puNote": {
+          "message": "wadsfv fdg esdfg"
         }
       },
       "dropoffDetails": {
-        "recipient": {
-          "name": "",
-          "phone": "",
-          "email": ""
+        "recipientDetails": {
+          "name": "esdfg",
+          "phone": "2345",
+          "email": "sdfg"
         },
         "locationDetails": {
-          "locationName": "",
-          "address": "",
-          "subDistrict": "",
+          "locationName": "sdfg",
+          "address": "dfg",
+          "subDistrict": "edsf",
           "district": "Pasar Rebo",
-          "city": "",
-          "postalCode": "",
+          "city": "esdrfg",
+          "postalCode": "edrfg",
           "geoPoint": {
             "lat": 0,
             "lng": 0
@@ -83,15 +56,15 @@
           "addressType": "Home, Office, Mall",
           "province": "DO - TIMUR"
         },
-        "reqDlTime": "",
-        "Note": {
-          "Message": ""
+        "reqDlTime": "esdrfg",
+        "dlNote": {
+          "message": "esdfg erdfg erdfg"
         }
       },
       "packageDetails": {
         "packageSize": "Small",
-        "packageDescription": "",
-        "packageValue": "",
+        "packageDescription": "esdfg dfg ewsrdfg",
+        "packageValue": "wesrdfg ewrdf erdfg",
         "numberofPiece": 3,
         "dimensions": {
           "length": 0,
@@ -109,7 +82,7 @@
       "items": [
         {
           "orderId": "",
-          "pieceId": "",
+          "pieceId": "2345",
           "weight": 0,
           "dimensions": {
             "length": 0,
@@ -124,207 +97,82 @@
       ]
     },
     {
-        "trackingId": "2",
-        "orderDetails": {
-          "status": "",
-          "orderId": "",
-          "pieceId": "",
-          "deliveryFee": 0,
-          "orderDeliveryDetails": {
-            "orderDate": "",
-            "pickupDate": "",
-            "dlSla": 0,
-            "orderDistance": 0,
-            "linehaul": "",
-            "specialHandling": ""
-          },
-          "orderDimensionDetails": {
-            "weight": 0,
-            "dimensions": {
-              "length": 0,
-              "width": 0,
-              "height": 0
-            },
-            "volWeight": 0
-          },
-          "batchDetails": {
-            "batchCreationTime": "",
-            "batchId": "",
-            "orderCancelledTime": "",
-            "orderCancelReason": "",
-            "orderReturnedTime": ""
-          }
+      "trackingId": "2",
+      "pickupDetails": {
+        "senderDetails": {
+          "name": "esdfg",
+          "phone": "2345",
+          "email": "sdfg"
         },
-        "pickupDetails": {
-          "senderName": "",
-          "senderPhone": "",
-          "locationDetails": {
-            "locationName": "",
-            "address": "",
-            "subDistrict": "",
-            "district": "",
-            "city": "",
-            "postalCode": "",
-            "geoPoint": {
-              "lat": 0,
-              "lng": 0
-            },
-            "type": "Home, Office, Mall",
-            "province": "PK - DEPOK"
+        "locationDetails": {
+          "locationName": "asfd",
+          "address": "wadsf",
+          "subDistrict": "afsd",
+          "district": "wadfsb",
+          "city": "afds",
+          "postalCode": "2345",
+          "geoPoint": {
+            "lat": 0,
+            "lng": 0
           },
-          "packageInchargeName": "",
-          "expectedPuDate&Time": "",
-          "Slot": "Slot 1, Slot 2, Slot 3",
-          "Note": {
-            "Message": ""
-          }
+          "type": "Home, Office, Mall",
+          "province": "PK - DEPOK"
         },
-        "dropoffDetails": {
-          "recipient": {
-            "name": "",
-            "phone": "",
-            "email": ""
-          },
-          "locationDetails": {
-            "locationName": "",
-            "address": "",
-            "subDistrict": "",
-            "district": "Pasar Rebo",
-            "city": "",
-            "postalCode": "",
-            "geoPoint": {
-              "lat": 0,
-              "lng": 0
-            },
-            "addressType": "Home, Office, Mall",
-            "province": "DO - TIMUR"
-          },
-          "reqDlTime": "",
-          "Note": {
-            "Message": ""
-          }
-        },
-        "packageDetails": {
-          "packageSize": "Small",
-          "packageDescription": "",
-          "packageValue": "",
-          "numberofPiece": 3,
-          "dimensions": {
-            "length": 0,
-            "width": 0,
-            "height": 0
-          },
-          "volWeight": 0,
-          "billableWeight": 0,
-          "weightIndex": 0
-        },
-        "paymentDetails": {
-          "paymentMethod": "COD",
-          "price": 0
-        },
-        "items": [
-          {
-            "orderId": "",
-            "pieceId": "",
-            "weight": 0,
-            "dimensions": {
-              "length": 0,
-              "width": 0,
-              "height": 0
-            },
-            "volWeight": 0,
-            "billableWeight": 0,
-            "weightIndex": 0,
-            "price": 0
-          }
-        ]
+        "packageInchargeName": "asdfv",
+        "expectedPuDate&Time": "asdf",
+        "slot": "slot 1, slot 2, slot 3",
+        "puNote": {
+          "message": "wadsfv fdg esdfg"
+        }
       },
-      {
-        "trackingId": "3",
-        "orderDetails": {
-          "status": "",
+      "dropoffDetails": {
+        "recipientDetails": {
+          "name": "esdfg",
+          "phone": "2345",
+          "email": "sdfg"
+        },
+        "locationDetails": {
+          "locationName": "sdfg",
+          "address": "dfg",
+          "subDistrict": "edsf",
+          "district": "Pasar Rebo",
+          "city": "esdrfg",
+          "postalCode": "edrfg",
+          "geoPoint": {
+            "lat": 0,
+            "lng": 0
+          },
+          "addressType": "Home, Office, Mall",
+          "province": "DO - TIMUR"
+        },
+        "reqDlTime": "esdrfg",
+        "dlNote": {
+          "message": "esdfg erdfg erdfg"
+        }
+      },
+      "packageDetails": {
+        "packageSize": "Small",
+        "packageDescription": "esdfg dfg ewsrdfg",
+        "packageValue": "wesrdfg ewrdf erdfg",
+        "numberofPiece": 3,
+        "dimensions": {
+          "length": 0,
+          "width": 0,
+          "height": 0
+        },
+        "volWeight": 0,
+        "billableWeight": 0,
+        "weightIndex": 0
+      },
+      "paymentDetails": {
+        "paymentMethod": "COD",
+        "price": 0
+      },
+      "items": [
+        {
           "orderId": "",
-          "pieceId": "",
-          "deliveryFee": 0,
-          "orderDeliveryDetails": {
-            "orderDate": "",
-            "pickupDate": "",
-            "dlSla": 0,
-            "orderDistance": 0,
-            "linehaul": "",
-            "specialHandling": ""
-          },
-          "orderDimensionDetails": {
-            "weight": 0,
-            "dimensions": {
-              "length": 0,
-              "width": 0,
-              "height": 0
-            },
-            "volWeight": 0
-          },
-          "batchDetails": {
-            "batchCreationTime": "",
-            "batchId": "",
-            "orderCancelledTime": "",
-            "orderCancelReason": "",
-            "orderReturnedTime": ""
-          }
-        },
-        "pickupDetails": {
-          "senderName": "",
-          "senderPhone": "",
-          "locationDetails": {
-            "locationName": "",
-            "address": "",
-            "subDistrict": "",
-            "district": "",
-            "city": "",
-            "postalCode": "",
-            "geoPoint": {
-              "lat": 0,
-              "lng": 0
-            },
-            "type": "Home, Office, Mall",
-            "province": "PK - DEPOK"
-          },
-          "packageInchargeName": "",
-          "expectedPuDate&Time": "",
-          "Slot": "Slot 1, Slot 2, Slot 3",
-          "Note": {
-            "Message": ""
-          }
-        },
-        "dropoffDetails": {
-          "recipient": {
-            "name": "",
-            "phone": "",
-            "email": ""
-          },
-          "locationDetails": {
-            "locationName": "",
-            "address": "",
-            "subDistrict": "",
-            "district": "Pasar Rebo",
-            "city": "",
-            "postalCode": "",
-            "geoPoint": {
-              "lat": 0,
-              "lng": 0
-            },
-            "addressType": "Home, Office, Mall",
-            "province": "DO - TIMUR"
-          },
-          "reqDlTime": "",
-          "Note": {
-            "Message": ""
-          }
-        },
-        "packageDetails": {
-          "packageSize": "Small",
-          "packageDescription": "",
-          "packageValue": "",
-          "numberofPiece": 3,
+          "pieceId": "2345",
+          "weight": 0,
           "dimensions": {
             "length": 0,
             "width": 0,
@@ -332,28 +180,99 @@
           },
           "volWeight": 0,
           "billableWeight": 0,
-          "weightIndex": 0
-        },
-        "paymentDetails": {
-          "paymentMethod": "COD",
+          "weightIndex": 0,
           "price": 0
+        }
+      ]
+    },
+    {
+      "trackingId": "3",
+      "pickupDetails": {
+        "senderDetails": {
+          "name": "esdfg",
+          "phone": "2345",
+          "email": "sdfg"
         },
-        "items": [
-          {
-            "orderId": "",
-            "pieceId": "",
-            "weight": 0,
-            "dimensions": {
-              "length": 0,
-              "width": 0,
-              "height": 0
-            },
-            "volWeight": 0,
-            "billableWeight": 0,
-            "weightIndex": 0,
-            "price": 0
-          }
-        ]
-      }
+        "locationDetails": {
+          "locationName": "asfd",
+          "address": "wadsf",
+          "subDistrict": "afsd",
+          "district": "wadfsb",
+          "city": "afds",
+          "postalCode": "2345",
+          "geoPoint": {
+            "lat": 0,
+            "lng": 0
+          },
+          "type": "Home, Office, Mall",
+          "province": "PK - DEPOK"
+        },
+        "packageInchargeName": "asdfv",
+        "expectedPuDate&Time": "asdf",
+        "slot": "slot 1, slot 2, slot 3",
+        "puNote": {
+          "message": "wadsfv fdg esdfg"
+        }
+      },
+      "dropoffDetails": {
+        "recipientDetails": {
+          "name": "esdfg",
+          "phone": "2345",
+          "email": "sdfg"
+        },
+        "locationDetails": {
+          "locationName": "sdfg",
+          "address": "dfg",
+          "subDistrict": "edsf",
+          "district": "Pasar Rebo",
+          "city": "esdrfg",
+          "postalCode": "edrfg",
+          "geoPoint": {
+            "lat": 0,
+            "lng": 0
+          },
+          "addressType": "Home, Office, Mall",
+          "province": "DO - TIMUR"
+        },
+        "reqDlTime": "esdrfg",
+        "dlNote": {
+          "message": "esdfg erdfg erdfg"
+        }
+      },
+      "packageDetails": {
+        "packageSize": "Small",
+        "packageDescription": "esdfg dfg ewsrdfg",
+        "packageValue": "wesrdfg ewrdf erdfg",
+        "numberofPiece": 3,
+        "dimensions": {
+          "length": 0,
+          "width": 0,
+          "height": 0
+        },
+        "volWeight": 0,
+        "billableWeight": 0,
+        "weightIndex": 0
+      },
+      "paymentDetails": {
+        "paymentMethod": "COD",
+        "price": 0
+      },
+      "items": [
+        {
+          "orderId": "",
+          "pieceId": "2345",
+          "weight": 0,
+          "dimensions": {
+            "length": 0,
+            "width": 0,
+            "height": 0
+          },
+          "volWeight": 0,
+          "billableWeight": 0,
+          "weightIndex": 0,
+          "price": 0
+        }
+      ]
+    }
   ]
 }

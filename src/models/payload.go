@@ -7,9 +7,9 @@ import (
 )
 
 type ApiPayload struct {
-	TenantToken     string
-	BusinessDetails BusinessDetails
-	Orders          []Order
+	TenantToken     string          `json:"tenantToken" bson:"tenantToken"`
+	BusinessDetails BusinessDetails `json:"businessDetails" bson:"businessDetails"`
+	Orders          []Order         `json:"orders" bson:"orders"`
 }
 
 // type CsvPayload struct {
