@@ -1,15 +1,15 @@
 package restApis
 
-// import (
-// 	"fmt"
+import (
+	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/conf"
+	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/framework"
+	routing "github.com/qiangxue/fasthttp-routing"
+)
 
-// 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/framework"
-// 	"github.com/valyala/fasthttp"
-// )
+func InitApis(appCtx framework.Framework) {
 
-// appCtx := framework.GetCurrentAppContext()
-
-// appCtx.Router.Get("/", func(c *routing.Context) error {
-// 	fmt.Fprintf(c, "Hello, world!")
-// 	return nil
-// })
+	appCtx.Router.Post("/", func(c *routing.Context) error {
+		conf.ConsumeApiOrders(string(c.PostBody()))
+		return nil
+	})
+}

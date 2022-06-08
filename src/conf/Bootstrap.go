@@ -2,22 +2,15 @@ package conf
 
 import (
 	"fmt"
-	"io/ioutil"
 
 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/framework"
 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/helpers"
 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/models"
 )
 
-func Testing() (string, bool) {
-	b, err := ioutil.ReadFile("./src/conf/api.json")
-	if err != nil {
-		fmt.Print("Bootstrap error: ", err)
-		return err.Error(), false
-	}
-
+func ConsumeApiOrders(apiOrder string) (string, bool) {
 	var demoApi models.ApiPayload
-	demoApi.FromJSONString(string(b))
+	demoApi.FromJSONString(apiOrder)
 
 	fmt.Println("-------------------------------------------")
 	fmt.Println("-------------------------------------------")
@@ -53,6 +46,5 @@ func Testing() (string, bool) {
 
 func Bootstrap(appCtx framework.Framework) {
 	fmt.Println("Running Bootstrap...")
-	Testing()
 	fmt.Println("App is ready!")
 }
