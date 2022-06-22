@@ -2,49 +2,86 @@ package conf
 
 import (
 	"fmt"
+	"log"
+	"os"
 
+	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/aws/sqs"
 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/framework"
-	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/helpers"
 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/models"
+	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/services"
+	awsqs "github.com/aws/aws-sdk-go/service/sqs"
 )
 
-func ConsumeApiOrders(apiOrder string) (string, bool) {
+type ApiResponse struct {
+	Message     string        `json:"message" bson:"message"`
+	OrderStatus []OrderStatus `json:"ordersStatus" bson:"ordersStatus"`
+}
+
+type OrderStatus struct {
+	TrackingId string `json:"trackingId" bson:"trackingId"`
+	Message    string `json:"message" bson:"message"`
+	Status     bool   `json:"status" bson:"status"`
+}
+
+func startSQSConsumer(appCtx framework.Framework) {
+	go sqs.CreateContinuousConsumer(
+		os.Getenv("AWS_KEY"),
+		os.Getenv("AWS_SECRET"),
+		os.Getenv("AWS_REGION"),
+		os.Getenv("OMS_BRS_ORDER_QUEUE"),
+		4,
+		1,
+		sqs.SyncConsumer,
+		func(msg *awsqs.Message) error {
+			log.Println(*msg.Body)
+			err := services.OnSQSMessageOrderList(*msg.Body)
+			return err
+		},
+	)
+	appCtx.Info("SQS Consumers initialized.")
+}
+
+func ConsumeApiOrders(apiOrder string) {
+	var resp ApiResponse
 	var demoApi models.ApiPayload
-	demoApi.FromJSONString(apiOrder)
+
+	err := demoApi.FromJSONString(apiOrder)
+	if err != nil {
+		resp.Message = "Invalid API Request Body, Error: " + err.Error()
+		return
+	}
 
 	fmt.Println("-------------------------------------------")
 	fmt.Println("-------------------------------------------")
 	fmt.Println("-------------------------------------------")
 
-	fmt.Println("Calling Iam for Authentication")
+	framework.Logs("Calling Iam for Authentication")
 	var req models.IamRequest
 	req.TenantToken = demoApi.TenantToken
 	req.BusinessDetails = demoApi.BusinessDetails
 	IamAuth := req.GetIamAuthentication("BusinessHeader")
 
-	fmt.Println("Iam Response: ", IamAuth)
-	fmt.Println("Authenticated from Iam")
+	framework.Logs("Iam Response: ")
+	fmt.Println(IamAuth)
 
-	for i := range demoApi.Orders {
-		var temp models.OrderObject
-		temp.TenantToken = demoApi.TenantToken
-		temp.BusinessDetails = demoApi.BusinessDetails
-		temp.Order = demoApi.Orders[i]
-
-		status, resp := helpers.PostOrder(temp)
-		if !resp {
-			return status, resp
-		}
-
-		fmt.Println(status, " :: ", resp)
-		fmt.Println("-------------------------------------------")
-		fmt.Println("-------------------------------------------")
+	if !IamAuth.Status {
+		resp.Message = "Rejected from Iam"
+		return
 	}
 
-	return "Success: Processing", true
+	framework.Logs("Authenticated from Iam")
+	resp.Message = "Orders Processing"
+
+	framework.Logs("Pushing to Queue")
+	res := sqs.Produce(demoApi)
+	fmt.Print("SQS Response: ")
+	framework.Logs(res)
+	framework.Logs("Pushed to Queue")
+	return
 }
 
 func Bootstrap(appCtx framework.Framework) {
-	fmt.Println("Running Bootstrap...")
-	fmt.Println("App is ready!")
+	framework.Logs("Running Bootstrap...")
+	startSQSConsumer(appCtx)
+	framework.Logs("App is ready!")
 }

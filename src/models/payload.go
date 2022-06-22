@@ -12,9 +12,6 @@ type ApiPayload struct {
 	Orders          []Order         `json:"orders" bson:"orders"`
 }
 
-// type CsvPayload struct {
-// }
-
 func (obj *OrderObject) FromJSONString(jsonString string) error {
 	err := json.Unmarshal([]byte(jsonString), obj)
 	if err != nil {
@@ -32,12 +29,3 @@ func (obj *ApiPayload) FromJSONString(jsonString string) error {
 	}
 	return nil
 }
-
-// func (obj *CsvPayload) FromJSONString(jsonString string) error {
-// 	err := json.Unmarshal([]byte(jsonString), obj)
-// 	if err != nil {
-// 		framework.GetCurrentAppContext().Error(err)
-// 		return err
-// 	}
-// 	return nil
-// }

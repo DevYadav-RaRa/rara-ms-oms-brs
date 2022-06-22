@@ -1,276 +1,93 @@
 {
-  "tenantToken": "1223",
+  "tenantToken": "142345",
   "businessDetails": {
-    "businessName": "Dev Org.",
-    "accountNumber": "236548",
+    "businessName": "BRS Org.",
+    "accountNumber": "BANK123456",
     "serviceType": "Testing",
     "serviceId": "01"
   },
   "orders": [
     {
-      "trackingId": "1",
+      "trackingId": "96741235",
       "pickupDetails": {
         "senderDetails": {
-          "name": "esdfg",
-          "phone": "2345",
-          "email": "sdfg"
+          "name": "Incharge",
+          "phone": "777XXX66666",
+          "email": "incharge@gmail.com"
         },
         "locationDetails": {
-          "locationName": "asfd",
-          "address": "wadsf",
-          "subDistrict": "afsd",
-          "district": "wadfsb",
-          "city": "afds",
-          "postalCode": "2345",
+          "locationName": "MALL AREA",
+          "address": "6, Jl. Peta Selatan No.50a, RT.6/RW.3, Kalideres, Kec. Kalideres, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11840, Indonesia",
+          "subDistrict": "Kalideres",
+          "district": "Kalideres",
+          "city": "Kota Jakarta Barat",
+          "postalCode": "11840",
           "geoPoint": {
-            "lat": 0,
-            "lng": 0
+            "lat": -6.6666,
+            "lng": 106.444
           },
           "addressType": "Home, Office, Mall",
-          "province": "PK - DEPOK"
+          "province": "Daerah Khusus Ibukota Jakarta"
         },
-        "packageInchargeName": "asdfv",
-        "expectedPuDate&Time": "asdf",
+        "expectedPuDateandTime": "13-02-2022-11:57",
         "slot": "slot 1, slot 2, slot 3",
-        "puNote": {
-          "message": "wadsfv fdg esdfg"
-        }
+        "puNote": "wadsfv fdg esdfg"
       },
       "dropoffDetails": {
         "recipientDetails": {
-          "name": "esdfg",
-          "phone": "2345",
-          "email": "sdfg"
+          "name": "Recipient",
+          "phone": "975XXX66666",
+          "email": "recipient@gmail.com"
         },
         "locationDetails": {
-          "locationName": "sdfg",
-          "address": "dfg",
-          "subDistrict": "edsf",
-          "district": "Pasar Rebo",
-          "city": "esdrfg",
-          "postalCode": "edrfg",
+          "locationName": "MALL AREA",
+          "address": "6, Jl. Peta Selatan No.50a, RT.6/RW.3, Kalideres, Kec. Kalideres, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11840, Indonesia",
+          "subDistrict": "Kalideres",
+          "district": "Kalideres",
+          "city": "Kota Jakarta Barat",
+          "postalCode": "11840",
           "geoPoint": {
-            "lat": 0,
-            "lng": 0
+            "lat": -6.6666,
+            "lng": 106.444
           },
           "addressType": "Home, Office, Mall",
-          "province": "DO - TIMUR"
+          "province": "Daerah Khusus Ibukota Jakarta"
         },
-        "reqDlTime": "esdrfg",
-        "dlNote": {
-          "message": "esdfg erdfg erdfg"
-        }
+        "reqDlTime": "13-02-2022-11:57",
+        "dlNote": "esdfg erdfg erdfg"
       },
       "packageDetails": {
         "packageSize": "Small",
-        "packageDescription": "esdfg dfg ewsrdfg",
-        "packageValue": "wesrdfg ewrdf erdfg",
+        "packageDescription": "Description",
+        "packageValue": "1000",
         "numberofPiece": 3,
         "dimensions": {
-          "length": 0,
-          "width": 0,
-          "height": 0
+          "length": 10,
+          "width": 20,
+          "height": 10
         },
-        "volWeight": 0,
-        "billableWeight": 0,
+        "volWeight": 2,
+        "billableWeight": 2.5,
         "weightIndex": 0
       },
       "paymentDetails": {
         "paymentMethod": "COD",
-        "price": 0
+        "price": 1000
       },
       "items": [
         {
           "orderId": "",
           "pieceId": "2345",
-          "weight": 0,
+          "weight": 3,
           "dimensions": {
-            "length": 0,
-            "width": 0,
-            "height": 0
+            "length": 10,
+            "width": 20,
+            "height": 10
           },
-          "volWeight": 0,
-          "billableWeight": 0,
-          "weightIndex": 0,
-          "price": 0
-        }
-      ]
-    },
-    {
-      "trackingId": "2",
-      "pickupDetails": {
-        "senderDetails": {
-          "name": "esdfg",
-          "phone": "2345",
-          "email": "sdfg"
-        },
-        "locationDetails": {
-          "locationName": "asfd",
-          "address": "wadsf",
-          "subDistrict": "afsd",
-          "district": "wadfsb",
-          "city": "afds",
-          "postalCode": "2345",
-          "geoPoint": {
-            "lat": 0,
-            "lng": 0
-          },
-          "type": "Home, Office, Mall",
-          "province": "PK - DEPOK"
-        },
-        "packageInchargeName": "asdfv",
-        "expectedPuDate&Time": "asdf",
-        "slot": "slot 1, slot 2, slot 3",
-        "puNote": {
-          "message": "wadsfv fdg esdfg"
-        }
-      },
-      "dropoffDetails": {
-        "recipientDetails": {
-          "name": "esdfg",
-          "phone": "2345",
-          "email": "sdfg"
-        },
-        "locationDetails": {
-          "locationName": "sdfg",
-          "address": "dfg",
-          "subDistrict": "edsf",
-          "district": "Pasar Rebo",
-          "city": "esdrfg",
-          "postalCode": "edrfg",
-          "geoPoint": {
-            "lat": 0,
-            "lng": 0
-          },
-          "addressType": "Home, Office, Mall",
-          "province": "DO - TIMUR"
-        },
-        "reqDlTime": "esdrfg",
-        "dlNote": {
-          "message": "esdfg erdfg erdfg"
-        }
-      },
-      "packageDetails": {
-        "packageSize": "Small",
-        "packageDescription": "esdfg dfg ewsrdfg",
-        "packageValue": "wesrdfg ewrdf erdfg",
-        "numberofPiece": 3,
-        "dimensions": {
-          "length": 0,
-          "width": 0,
-          "height": 0
-        },
-        "volWeight": 0,
-        "billableWeight": 0,
-        "weightIndex": 0
-      },
-      "paymentDetails": {
-        "paymentMethod": "COD",
-        "price": 0
-      },
-      "items": [
-        {
-          "orderId": "",
-          "pieceId": "2345",
-          "weight": 0,
-          "dimensions": {
-            "length": 0,
-            "width": 0,
-            "height": 0
-          },
-          "volWeight": 0,
-          "billableWeight": 0,
-          "weightIndex": 0,
-          "price": 0
-        }
-      ]
-    },
-    {
-      "trackingId": "3",
-      "pickupDetails": {
-        "senderDetails": {
-          "name": "esdfg",
-          "phone": "2345",
-          "email": "sdfg"
-        },
-        "locationDetails": {
-          "locationName": "asfd",
-          "address": "wadsf",
-          "subDistrict": "afsd",
-          "district": "wadfsb",
-          "city": "afds",
-          "postalCode": "2345",
-          "geoPoint": {
-            "lat": 0,
-            "lng": 0
-          },
-          "type": "Home, Office, Mall",
-          "province": "PK - DEPOK"
-        },
-        "packageInchargeName": "asdfv",
-        "expectedPuDate&Time": "asdf",
-        "slot": "slot 1, slot 2, slot 3",
-        "puNote": {
-          "message": "wadsfv fdg esdfg"
-        }
-      },
-      "dropoffDetails": {
-        "recipientDetails": {
-          "name": "esdfg",
-          "phone": "2345",
-          "email": "sdfg"
-        },
-        "locationDetails": {
-          "locationName": "sdfg",
-          "address": "dfg",
-          "subDistrict": "edsf",
-          "district": "Pasar Rebo",
-          "city": "esdrfg",
-          "postalCode": "edrfg",
-          "geoPoint": {
-            "lat": 0,
-            "lng": 0
-          },
-          "addressType": "Home, Office, Mall",
-          "province": "DO - TIMUR"
-        },
-        "reqDlTime": "esdrfg",
-        "dlNote": {
-          "message": "esdfg erdfg erdfg"
-        }
-      },
-      "packageDetails": {
-        "packageSize": "Small",
-        "packageDescription": "esdfg dfg ewsrdfg",
-        "packageValue": "wesrdfg ewrdf erdfg",
-        "numberofPiece": 3,
-        "dimensions": {
-          "length": 0,
-          "width": 0,
-          "height": 0
-        },
-        "volWeight": 0,
-        "billableWeight": 0,
-        "weightIndex": 0
-      },
-      "paymentDetails": {
-        "paymentMethod": "COD",
-        "price": 0
-      },
-      "items": [
-        {
-          "orderId": "",
-          "pieceId": "2345",
-          "weight": 0,
-          "dimensions": {
-            "length": 0,
-            "width": 0,
-            "height": 0
-          },
-          "volWeight": 0,
-          "billableWeight": 0,
-          "weightIndex": 0,
-          "price": 0
+          "volWeight": 2,
+          "billableWeight": 2.5,
+          "weightIndex": 1,
+          "price": 1000
         }
       ]
     }

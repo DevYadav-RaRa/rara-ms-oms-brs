@@ -13,11 +13,16 @@ const db_name = "oms"
 const collection_name = "orders"
 
 type OrderObject struct {
-	TenantToken     string          `json:"tenantToken" bson:"tenantToken"`
-	BusinessDetails BusinessDetails `json:"businessDetails" bson:"businessDetails"`
-	OrderDetails    OrderDetails    `json:"orderDetails" bson:"orderDetails"`
-	Order           Order           `json:"order" bson:"order"`
-	Webhook         Webhook         `json:"webhook" bson:"webhook"`
+	Id              primitive.ObjectID `json:"_id" bson:"_id"`
+	TenantToken     string             `json:"tenantToken" bson:"tenantToken"`
+	BusinessDetails BusinessDetails    `json:"businessDetails" bson:"businessDetails"`
+	OrderDetails    OrderDetails       `json:"orderDetails" bson:"orderDetails"`
+	PickupDetails   PickupDetails      `json:"pickupDetails" bson:"pickupDetails"`
+	DropOffDetails  DropOffDetails     `json:"dropoffDetails" bson:"dropoffDetails"`
+	PackageDetails  PackageDetails     `json:"packageDetails" bson:"packageDetails"`
+	PaymentDetails  PaymentDetails     `json:"paymentDetails" bson:"paymentDetails"`
+	Pieces          []Piece            `json:"pieces" bson:"pieces"`
+	Webhook         Webhook            `json:"webhook" bson:"webhook"`
 }
 
 type Order struct {
@@ -26,7 +31,7 @@ type Order struct {
 	DropOffDetails DropOffDetails `json:"dropoffDetails" bson:"dropoffDetails"`
 	PackageDetails PackageDetails `json:"packageDetails" bson:"packageDetails"`
 	PaymentDetails PaymentDetails `json:"paymentDetails" bson:"paymentDetails"`
-	Items          []Piece        `json:"items" bson:"items"`
+	Pieces         []Piece        `json:"pieces" bson:"pieces"`
 }
 
 type BusinessDetails struct {
@@ -38,20 +43,19 @@ type BusinessDetails struct {
 
 type OrderDetails struct {
 	Status                string                `json:"status" bson:"status"`
-	OrderId               primitive.ObjectID    `json:"orderId" bson:"orderId"`
+	TrackingId            string                `json:"trackingId" bson:"trackingId"`
 	PieceId               string                `json:"pieceId" bson:"pieceId"`
 	DeliveryFee           float64               `json:"deliveryFee" bson:"deliveryFee"`
+	Amount                float64               `json:"amount" bson:"amount"`
 	OrderDeliveryDetails  OrderDeliveryDetails  `json:"orderDeliveryDetails" bson:"orderDeliveryDetails"`
 	OrderDimensionDetails OrderDimensionDetails `json:"orderDimensionDetails" bson:"orderDimensionDetails"`
-	BatchDetails          BatchDetails          `json:"batchDetails" bson:"batchDetails"`
 }
 
 type OrderDeliveryDetails struct {
 	OrderDate       string  `json:"orderDate" bson:"orderDate"`
 	PickupDate      string  `json:"pickupDate" bson:"pickupDate"`
-	DlSla           float64 `json:"dlSla" bson:"dlSla"`
 	OrderDistance   float64 `json:"orderDistance" bson:"orderDistance"`
-	Linehaul        string  `json:"linehaul" bson:"linehaul"`
+	Linehaul        bool    `json:"linehaul" bson:"linehaul"`
 	SpecialHandling string  `json:"specialHandling" bson:"specialHandling"`
 }
 
@@ -65,30 +69,22 @@ type Dimensions struct {
 	Length float64 `json:"length" bson:"length"`
 	Width  float64 `json:"width" bson:"width"`
 	Height float64 `json:"height" bson:"height"`
-}
-
-type BatchDetails struct {
-	BatchCreationTime  string             `json:"batchCreationTime" bson:"batchCreationTime"`
-	BatchId            primitive.ObjectID `json:"batchId" bson:"batchId"`
-	OrderCancelledTime string             `json:"orderCancelledTime" bson:"orderCancelledTime"`
-	OrderCancelReason  string             `json:"orderCancelReason" bson:"orderCancelReason"`
-	OrderReturnedTime  string             `json:"orderReturnedTime" bson:"orderReturnedTime"`
+	Unit   string  `json:"unit" bson:"unit"`
 }
 
 type PickupDetails struct {
-	SenderDetails         PersonalDetails `json:"senderDetails" bson:"senderDetails"`
+	PickupInchargeDetails PersonalDetails `json:"pickupIncharge" bson:"pickupIncharge"`
 	LocationDetails       LocationDetails `json:"locationDetails" bson:"locationDetails"`
-	PkgIncName            string          `json:"packageInchargeName" bson:"packageInchargeName"`
-	ExpectedPuDateAndTime string          `json:"expectedPuDate&Time" bson:"expectedPuDate&Time"`
+	ExpectedPuDateAndTime string          `json:"expectedPuDateandTime" bson:"expectedPuDateandTime"`
 	Slot                  string          `json:"slot" bson:"slot"`
-	PuNote                Note            `json:"puNote" bson:"puNote"`
+	PuNote                string          `json:"puNote" bson:"puNote"`
 }
 
 type DropOffDetails struct {
 	RecipientDetails PersonalDetails `json:"recipientDetails" bson:"recipientDetails"`
 	LocationDetails  LocationDetails `json:"locationDetails" bson:"locationDetails"`
 	ReqDlTime        string          `json:"reqDlTime" bson:"reqDlTime"`
-	DlNote           Note            `json:"dlNote" bson:"dlNote"`
+	DlNote           string          `json:"dlNote" bson:"dlNote"`
 }
 
 type PersonalDetails struct {
@@ -114,10 +110,6 @@ type GeoPoint struct {
 	Lng float64 `json:"lng" bson:"lng"`
 }
 
-type Note struct {
-	Message string `json:"message" bson:"message"`
-}
-
 type PackageDetails struct {
 	Size           string     `json:"packageSize" bson:"packageSize"`
 	Description    string     `json:"packageDescription" bson:"packageDescription"`
@@ -135,7 +127,7 @@ type PaymentDetails struct {
 }
 
 type Piece struct {
-	OrderId        primitive.ObjectID `json:"orderId" bson:"orderId"`
+	OrderId        primitive.ObjectID `json:"orderId,omitempty" bson:"orderId,omitempty"`
 	PieceId        string             `json:"pieceId" bson:"pieceId"`
 	Weight         float64            `json:"weight" bson:"weight"`
 	Dimensions     Dimensions         `json:"dimensions" bson:"dimensions"`
@@ -145,22 +137,12 @@ type Piece struct {
 	Price          float64            `json:"price" bson:"price"`
 }
 
-type Webhook struct {
-	Url     string  `json:"url" bson:"url"`
-	Headers Headers `json:headers bson:headers`
-	Payload string  `json:"payload" bson:"payload"`
-}
-
-type Headers struct {
-	header string `json:"header" bson:"header"`
-}
-
 func (obj *IamRequest) GetIamAuthentication(header string) IamResponse {
 	var reqObj IamRequest
 	reqObj.TenantToken = obj.TenantToken
 	reqObj.BusinessDetails = obj.BusinessDetails
 
-	// Call IM using Request struct and headers
+	// Call Iam using Request struct and headers
 	// Get response in the form of IamResponse struct
 
 	// ONLY FOR TESTING PURPOSES
@@ -178,26 +160,25 @@ func (obj *OrderObject) Insert() (error, bool) {
 		return err, false
 	}
 
-	obj.OrderDetails.OrderId = primitive.NewObjectID()
-	for i := range obj.Order.Items {
-		obj.Order.Items[i].OrderId = obj.OrderDetails.OrderId
+	obj.Id = primitive.NewObjectID()
+
+	for i := range obj.Pieces {
+		obj.Pieces[i].OrderId = obj.Id
 	}
-	fmt.Println("OrderObject: ", obj)
+
 	doc, err := toDoc(obj)
 	if err != nil {
 		appCtx.Error(err)
 		return err, false
 	}
 
-	fmt.Println("collection_name: ", collection_name)
-	fmt.Println("doc: ", doc)
-	fmt.Println("ctx: ", ctx)
-	res, err := db.Collection(collection_name).InsertOne(ctx, doc)
-	fmt.Println("res: ", res)
+	_, err = db.Collection(collection_name).InsertOne(ctx, doc)
+
 	if err != nil {
 		appCtx.Error(err)
 		return err, false
 	}
+
 	// obj.OrderDetails.OrderId = res.InsertedID.(primitive.ObjectID)
 
 	return nil, true
@@ -212,7 +193,21 @@ func (obj *OrderObject) FindById() (interface{}, bool) {
 	}
 
 	var data map[string]interface{} = make(map[string]interface{})
-	res := db.Collection(collection_name).FindOne(ctx, bson.M{"_id": obj.OrderDetails.OrderId})
+	res := db.Collection(collection_name).FindOne(ctx, bson.M{"_id": obj.Id})
+	res.Decode(&data)
+	return data, true
+}
+
+func (obj *OrderObject) FindByTrackingId() (OrderObject, bool) {
+	err, ctx, appCtx, db, cancel := getDbContext(db_name, 15*time.Second)
+	defer cancel()
+	var data OrderObject
+	if err != nil {
+		appCtx.Error(err)
+		return data, false
+	}
+
+	res := db.Collection(collection_name).FindOne(ctx, bson.M{"order.trackingId": obj.OrderDetails.TrackingId})
 	res.Decode(&data)
 	return data, true
 }
@@ -226,7 +221,7 @@ func (obj *OrderObject) Save() (bool, error) {
 		appCtx.Error(err)
 		return false, err
 	}
-	res, err := db.Collection(collection_name).UpdateOne(ctx, bson.M{"_id": obj.OrderDetails.OrderId}, bson.M{"$set": doc})
+	res, err := db.Collection(collection_name).UpdateOne(ctx, bson.M{"_id": obj.Id}, bson.M{"$set": doc})
 	if err != nil {
 		appCtx.Error(err)
 		return false, err

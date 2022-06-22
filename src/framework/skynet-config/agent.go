@@ -61,5 +61,6 @@ func getMapKeys(m map[string]EnvSpec) []string {
 }
 
 func log(message interface{}) {
-	fmt.Printf("[CONFIG AGENT] %+v\n", message)
+	fmt.Printf("\033[1;34m%s\033[0m", "[CONFIG AGENT] ")
+	fmt.Printf("%+v\n", message)
 }
