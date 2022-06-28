@@ -5,7 +5,6 @@ import (
 	"log"
 	"os"
 
-	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/aws/s3config"
 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/aws/sqs"
 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/framework"
 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/models"
@@ -84,6 +83,9 @@ func ConsumeApiOrders(apiOrder string) {
 func Bootstrap(appCtx framework.Framework) {
 	framework.Logs("Running Bootstrap...")
 	startSQSConsumer(appCtx)
-	s3config.GetPresignedUrl()
+	//s3config.GetPresignedUrl()
+	//a, b, _ := models.FetchOrdersFromDB("124", 1, 2)
+	services.Processing("124", 2)
+
 	framework.Logs("App is ready!")
 }
