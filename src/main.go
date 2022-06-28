@@ -8,6 +8,7 @@ import (
 
 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/conf"
 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/framework"
+	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/restApis"
 )
 
 // Flavour We hard wire flavour at time of build using linker.
@@ -37,6 +38,7 @@ func main() {
 	appCtx.InitMongo(conf.MongoConnections)
 	appCtx.SetAsMainContext()
 	conf.Route(appCtx)
+	restApis.InitApis(appCtx)
 	// load bootstrap
 	conf.Bootstrap(appCtx)
 	// serve

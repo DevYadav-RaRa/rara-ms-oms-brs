@@ -7,13 +7,10 @@ import (
 )
 
 type ApiPayload struct {
-	TenantToken     string
-	BusinessDetails BusinessDetails
-	Orders          []Order
+	TenantToken     string          `json:"tenantToken" bson:"tenantToken"`
+	BusinessDetails BusinessDetails `json:"businessDetails" bson:"businessDetails"`
+	Orders          []Order         `json:"orders" bson:"orders"`
 }
-
-// type CsvPayload struct {
-// }
 
 func (obj *OrderObject) FromJSONString(jsonString string) error {
 	err := json.Unmarshal([]byte(jsonString), obj)
@@ -32,12 +29,3 @@ func (obj *ApiPayload) FromJSONString(jsonString string) error {
 	}
 	return nil
 }
-
-// func (obj *CsvPayload) FromJSONString(jsonString string) error {
-// 	err := json.Unmarshal([]byte(jsonString), obj)
-// 	if err != nil {
-// 		framework.GetCurrentAppContext().Error(err)
-// 		return err
-// 	}
-// 	return nil
-// }

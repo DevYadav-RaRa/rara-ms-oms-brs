@@ -9,8 +9,6 @@ type Mapper interface {
 
 type ApiPayload models.ApiPayload
 
-// type CsvPayload models.CsvPayload
-
 func (obj *ApiPayload) OrderObjectMapper() []models.OrderObject {
 	var response []models.OrderObject
 
@@ -19,20 +17,14 @@ func (obj *ApiPayload) OrderObjectMapper() []models.OrderObject {
 
 		ordObj.TenantToken = obj.TenantToken
 		ordObj.BusinessDetails = obj.BusinessDetails
-		ordObj.Order = obj.Orders[i]
+		ordObj.PickupDetails = obj.Orders[i].PickupDetails
+		ordObj.DropOffDetails = obj.Orders[i].DropOffDetails
+		ordObj.PackageDetails = obj.Orders[i].PackageDetails
+		ordObj.PaymentDetails = obj.Orders[i].PaymentDetails
+		ordObj.Pieces = obj.Orders[i].Pieces
 
 		response = append(response, ordObj)
 	}
 
 	return response
 }
-
-// func (obj *CsvPayload) OrderObjectMapper() models.OrderObject {
-// 	var ordObj models.OrderObject
-// 	return ordObj
-// }
-
-// func (obj *CsvPayload) OrderPieceMapper() models.Piece {
-// 	var ordPie models.Piece
-// 	return ordPie
-// }
