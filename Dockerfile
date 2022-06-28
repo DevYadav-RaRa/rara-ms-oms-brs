@@ -10,10 +10,10 @@ RUN apt-get install -y autoconf automake gcc cpp git zip unzip openjdk-8-jdk-hea
 RUN mkdir -p /opt
 WORKDIR /opt
 RUN apt-get install -y wget
-ADD https://golang.org/dl/go1.17.3.linux-amd64.tar.gz /opt/
+ADD https://go.dev/dl/go1.18.3.linux-amd64.tar.gz /opt/
 RUN ls -lart
-RUN tar -xvf go1.17.3.linux-amd64.tar.gz
-RUN ln -sf /opt/go1.17.3.linux-amd64 go
+RUN tar -xvf go1.18.3.linux-amd64.tar.gz
+RUN ln -sf /opt/go1.18.3.linux-amd64 go
 RUN ls -lart
 # replace shell with bash
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
@@ -29,7 +29,7 @@ RUN mkdir app
 VOLUME /root/app
 
 #RUN prod
-ENV GO_ENV production
+ENV GO_ENV development
 ENV GO_PORT 8181
 WORKDIR /root/app
 EXPOSE 8181

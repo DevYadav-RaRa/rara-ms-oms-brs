@@ -1,27 +1,30 @@
 package helpers
 
 import (
-	"fmt"
+	"errors"
 
+	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/framework"
 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/models"
 )
 
-func postOrder(order models.OrderObject, header string) (string, bool) {
-	IamAuth := order.GetIamAuthentication(header)
+func PostOrder(order models.OrderObject) (error, bool) {
+	order.OrderDetails.Status = "Processing"
 
-	if IamAuth.Status {
-		order.OrderDetails.Status = "Processing"
-		// 	Save mongo
-		err, status := order.Insert()
-		if err != nil {
-			return err.Error(), status
-		}
-		// 	Send it to the queue -> Order acceptence
-		fmt.Println("Pushing to Queue")
-		fmt.Println("Pushed to Queue")
+	framework.Logs("Inserting to MongoDb")
 
-		return "Success: Processing", true
+	// Dont's save same order again and return
+	errFind, _ := order.FindByTrackingId() // and status != failed (another status in order object for order placement either success or failed)
+	if errFind.OrderDetails.TrackingId != "" {
+		return errors.New("order processing"), false
 	}
-	order.OrderDetails.Status = "Rejected"
-	return "Invalid: Iam Rejected", false
+
+	err, status := order.Insert()
+	if err != nil {
+		return err, status
+	}
+
+	framework.Logs("Inserted to MongoDb")
+
+	// 	Send it to the queue -> Order acceptence
+	return errors.New("success: processing"), true
 }

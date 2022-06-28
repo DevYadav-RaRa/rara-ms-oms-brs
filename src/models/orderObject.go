@@ -2,169 +2,160 @@ package models
 
 import (
 	"fmt"
+	"log"
 	"time"
 
+	paginate "github.com/gobeam/mongo-go-pagination"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
+
+func init() {
+	log.SetPrefix("LOG: ")
+	log.SetFlags(log.Ldate | log.Lmicroseconds | log.Llongfile)
+	log.Println("init started")
+}
 
 const db_name = "oms"
 
 const collection_name = "orders"
 
 type OrderObject struct {
-	TenantToken     string
-	BusinessDetails BusinessDetails
-	OrderDetails    OrderDetails
-	Order           Order
-	Webhook         Webhook
+	Id              primitive.ObjectID `json:"_id" bson:"_id"`
+	UploadId        string             `json:"uploadId" bson:"uploadId"`
+	TenantToken     string             `json:"tenantToken" bson:"tenantToken"`
+	BusinessDetails BusinessDetails    `json:"businessDetails" bson:"businessDetails"`
+	OrderDetails    OrderDetails       `json:"orderDetails" bson:"orderDetails"`
+	PickupDetails   PickupDetails      `json:"pickupDetails" bson:"pickupDetails"`
+	DropOffDetails  DropOffDetails     `json:"dropoffDetails" bson:"dropoffDetails"`
+	PackageDetails  PackageDetails     `json:"packageDetails" bson:"packageDetails"`
+	PaymentDetails  PaymentDetails     `json:"paymentDetails" bson:"paymentDetails"`
+	Pieces          []Piece            `json:"pieces" bson:"pieces"`
+	Webhook         Webhook            `json:"webhook" bson:"webhook"`
 }
 
 type Order struct {
-	TrackingId     string
-	PickupDetails  PickupDetails
-	DropOffDetails DropOffDetails
-	PackageDetails PackageDetails
-	PaymentDetails PaymentDetails
-	Items          []Piece
+	TrackingId     string         `json:"trackingId" bson:"trackingId"`
+	PickupDetails  PickupDetails  `json:"pickupDetails" bson:"pickupDetails"`
+	DropOffDetails DropOffDetails `json:"dropoffDetails" bson:"dropoffDetails"`
+	PackageDetails PackageDetails `json:"packageDetails" bson:"packageDetails"`
+	PaymentDetails PaymentDetails `json:"paymentDetails" bson:"paymentDetails"`
+	Pieces         []Piece        `json:"pieces" bson:"pieces"`
 }
 
 type BusinessDetails struct {
-	BusinessName string
-	AccNo        string
-	ServiceType  string
-	ServiceId    string
+	BusinessName string `json:"businessName" bson:"businessName"`
+	AccNo        string `json:"accountNumber" bson:"accountNumber"`
+	ServiceType  string `json:"serviceType" bson:"serviceType"`
+	ServiceId    string `json:"serviceId" bson:"serviceId"`
 }
 
 type OrderDetails struct {
-	Status                string
-	OrderId               primitive.ObjectID
-	PieceId               string
-	DeliveryFee           float64
-	OrderDeliveryDetails  OrderDeliveryDetails
-	OrderDimensionDetails OrderDimensionDetails
-	BatchDetails          BatchDetails
+	Status                string                `json:"status" bson:"status"`
+	TrackingId            string                `json:"trackingId" bson:"trackingId"`
+	PieceId               string                `json:"pieceId" bson:"pieceId"`
+	DeliveryFee           float64               `json:"deliveryFee" bson:"deliveryFee"`
+	Amount                float64               `json:"amount" bson:"amount"`
+	OrderDeliveryDetails  OrderDeliveryDetails  `json:"orderDeliveryDetails" bson:"orderDeliveryDetails"`
+	OrderDimensionDetails OrderDimensionDetails `json:"orderDimensionDetails" bson:"orderDimensionDetails"`
 }
 
 type OrderDeliveryDetails struct {
-	OrderDate       string
-	PickupDate      string
-	DlSla           float64
-	OrderDistance   float64
-	Linehaul        string
-	SpecialHandling string
+	OrderDate       string  `json:"orderDate" bson:"orderDate"`
+	PickupDate      string  `json:"pickupDate" bson:"pickupDate"`
+	OrderDistance   float64 `json:"orderDistance" bson:"orderDistance"`
+	Linehaul        bool    `json:"linehaul" bson:"linehaul"`
+	SpecialHandling string  `json:"specialHandling" bson:"specialHandling"`
 }
 
 type OrderDimensionDetails struct {
-	Weight     float64
-	Dimensions Dimensions
-	VolWeight  float64
+	Weight     float64    `json:"weight" bson:"weight"`
+	Dimensions Dimensions `json:"dimensions" bson:"dimensions"`
+	VolWeight  float64    `json:"volWeight" bson:"volWeight"`
 }
 
 type Dimensions struct {
-	Length float64
-	Width  float64
-	Height float64
-}
-
-type BatchDetails struct {
-	BatchCreationTime  string
-	BatchId            primitive.ObjectID
-	OrderCancelledTime string
-	OrderCancelReason  string
-	OrderReturnedTime  string
+	Length float64 `json:"length" bson:"length"`
+	Width  float64 `json:"width" bson:"width"`
+	Height float64 `json:"height" bson:"height"`
+	Unit   string  `json:"unit" bson:"unit"`
 }
 
 type PickupDetails struct {
-	SenderDetails         PersonalDetails
-	LocationDetails       LocationDetails
-	PkgIncName            string
-	ExpectedPuDateAndTime string
-	Slot                  string
-	PuNote                Note
+	PickupInchargeDetails PersonalDetails `json:"pickupIncharge" bson:"pickupIncharge"`
+	LocationDetails       LocationDetails `json:"locationDetails" bson:"locationDetails"`
+	ExpectedPuDateAndTime string          `json:"expectedPuDateandTime" bson:"expectedPuDateandTime"`
+	Slot                  string          `json:"slot" bson:"slot"`
+	PuNote                string          `json:"puNote" bson:"puNote"`
 }
 
 type DropOffDetails struct {
-	RecipientDetails PersonalDetails
-	LocationDetails  LocationDetails
-	ReqDlTime        string
-	DlNote           Note
+	RecipientDetails PersonalDetails `json:"recipientDetails" bson:"recipientDetails"`
+	LocationDetails  LocationDetails `json:"locationDetails" bson:"locationDetails"`
+	ReqDlTime        string          `json:"reqDlTime" bson:"reqDlTime"`
+	DlNote           string          `json:"dlNote" bson:"dlNote"`
 }
 
 type PersonalDetails struct {
-	Name    string
-	Email   string
-	PhoneNo string
+	Name    string `json:"name" bson:"name"`
+	Email   string `json:"email" bson:"email"`
+	PhoneNo string `json:"phone" bson:"phone"`
 }
 
 type LocationDetails struct {
-	Name        string
-	Address     string
-	SubDistrict string
-	District    string
-	City        string
-	PostalCode  string
-	LatLng      GeoPoint
-	Type        string
-	Province    string
+	Name        string   `json:"locationName" bson:"locationName"`
+	Address     string   `json:"address" bson:"address"`
+	SubDistrict string   `json:"subDistrict" bson:"subDistrict"`
+	District    string   `json:"district" bson:"district"`
+	City        string   `json:"city" bson:"city"`
+	PostalCode  string   `json:"postalCode" bson:"postalCode"`
+	LatLng      GeoPoint `json:"geoPoint" bson:"geoPoint"`
+	Type        string   `json:"addressType" bson:"addressType"`
+	Province    string   `json:"province" bson:"province"`
 }
 
 type GeoPoint struct {
-	Lat float64
-	Lng float64
-}
-
-type Note struct {
-	Message string
+	Lat float64 `json:"lat" bson:"lat"`
+	Lng float64 `json:"lng" bson:"lng"`
 }
 
 type PackageDetails struct {
-	Size           string
-	Description    string
-	Value          string
-	NoOfPieces     int
-	Dimensions     Dimensions
-	VolWeight      float64
-	BillableWeight float64
-	WeightIndex    float64
+	Size           string     `json:"packageSize" bson:"packageSize"`
+	Description    string     `json:"packageDescription" bson:"packageDescription"`
+	Value          string     `json:"packageValue" bson:"packageValue"`
+	NoOfPieces     int        `json:"numberofPiece" bson:"numberofPiece"`
+	Dimensions     Dimensions `json:"dimensions" bson:"dimensions"`
+	VolWeight      float64    `json:"volWeight" bson:"volWeight"`
+	BillableWeight float64    `json:"billableWeight" bson:"billableWeight"`
+	WeightIndex    float64    `json:"weightIndex" bson:"weightIndex"`
 }
 
 type PaymentDetails struct {
-	Method string
-	Price  float64
+	Method string  `json:"paymentMethod" bson:"paymentMethod"`
+	Price  float64 `json:"price" bson:"price"`
 }
 
 type Piece struct {
-	OrderId        primitive.ObjectID
-	PieceId        string
-	Weight         float64
-	Dimensions     Dimensions
-	VolWeight      float64
-	BillableWeight float64
-	WeightIndex    float64
-	Price          float64
+	OrderId        primitive.ObjectID `json:"orderId,omitempty" bson:"orderId,omitempty"`
+	PieceId        string             `json:"pieceId" bson:"pieceId"`
+	Weight         float64            `json:"weight" bson:"weight"`
+	Dimensions     Dimensions         `json:"dimensions" bson:"dimensions"`
+	VolWeight      float64            `json:"volWeight" bson:"volWeight"`
+	BillableWeight float64            `json:"billableWeight" bson:"billableWeight"`
+	WeightIndex    float64            `json:"weightIndex" bson:"weightIndex"`
+	Price          float64            `json:"price" bson:"price"`
 }
 
-type Webhook struct {
-	Url     string
-	Header  Header
-	Payload string
-}
-
-type Header struct {
-	header string
-}
-
-func (obj *OrderObject) GetIamAuthentication(header string) ImResponse {
-	var reqObj Request
+func (obj *IamRequest) GetIamAuthentication(header string) IamResponse {
+	var reqObj IamRequest
 	reqObj.TenantToken = obj.TenantToken
 	reqObj.BusinessDetails = obj.BusinessDetails
 
-	// Call IM using Request struct and headers
-	// Get response in the form of ImResponse struct
+	// Call Iam using Request struct and headers
+	// Get response in the form of IamResponse struct
 
 	// ONLY FOR TESTING PURPOSES
-	responseObj := reqObj.GetImResponse(header)
+	responseObj := reqObj.GetIamResponse(header)
 	// ONLY FOR TESTING PURPOSES
 
 	return responseObj
@@ -178,19 +169,25 @@ func (obj *OrderObject) Insert() (error, bool) {
 		return err, false
 	}
 
-	// obj.OrderDetails.OrderId = primitive.NewObjectID()
+	obj.Id = primitive.NewObjectID()
+
+	for i := range obj.Pieces {
+		obj.Pieces[i].OrderId = obj.Id
+	}
 
 	doc, err := toDoc(obj)
 	if err != nil {
 		appCtx.Error(err)
 		return err, false
 	}
-	res, err := db.Collection(collection_name).InsertOne(ctx, doc)
+
+	_, err = db.Collection(collection_name).InsertOne(ctx, doc)
+
 	if err != nil {
 		appCtx.Error(err)
 		return err, false
 	}
-	fmt.Println(res)
+
 	// obj.OrderDetails.OrderId = res.InsertedID.(primitive.ObjectID)
 
 	return nil, true
@@ -205,7 +202,21 @@ func (obj *OrderObject) FindById() (interface{}, bool) {
 	}
 
 	var data map[string]interface{} = make(map[string]interface{})
-	res := db.Collection(collection_name).FindOne(ctx, bson.M{"_id": obj.OrderDetails.OrderId})
+	res := db.Collection(collection_name).FindOne(ctx, bson.M{"_id": obj.Id})
+	res.Decode(&data)
+	return data, true
+}
+
+func (obj *OrderObject) FindByTrackingId() (OrderObject, bool) {
+	err, ctx, appCtx, db, cancel := getDbContext(db_name, 15*time.Second)
+	defer cancel()
+	var data OrderObject
+	if err != nil {
+		appCtx.Error(err)
+		return data, false
+	}
+
+	res := db.Collection(collection_name).FindOne(ctx, bson.M{"order.trackingId": obj.OrderDetails.TrackingId})
 	res.Decode(&data)
 	return data, true
 }
@@ -219,11 +230,51 @@ func (obj *OrderObject) Save() (bool, error) {
 		appCtx.Error(err)
 		return false, err
 	}
-	res, err := db.Collection(collection_name).UpdateOne(ctx, bson.M{"_id": obj.OrderDetails.OrderId}, bson.M{"$set": doc})
+	res, err := db.Collection(collection_name).UpdateOne(ctx, bson.M{"_id": obj.Id}, bson.M{"$set": doc})
 	if err != nil {
 		appCtx.Error(err)
 		return false, err
 	}
 	fmt.Println(res.ModifiedCount)
 	return true, err
+}
+
+func FindBy(filters map[string]string, page int64, limit int64) ([]OrderObject, paginate.PaginationData, bool) {
+	err, ctx, appCtx, db, cancel := getDbContext(db_name, 15*time.Second)
+	defer cancel()
+	var mm []OrderObject
+	if err != nil {
+		appCtx.Error(err)
+		return nil, paginate.PaginationData{}, true
+	}
+	log.Println("I am here")
+
+	// fil := bson.M{
+	// 	"uploadId":            "124",
+	// 	"orderDetails.status": "NEW",
+	// }
+
+	projection := bson.M{}
+
+	collection := db.Collection(collection_name)
+	paginatedData, err := paginate.New(collection).Context(ctx).Limit(limit).Page(page).Select(projection).Filter(filters).Decode(&mm).Find()
+	if err != nil {
+		log.Println("Error getting paginated data: ", err)
+		return nil, paginate.PaginationData{}, true
+	}
+	//log.Println("Order data: ", mm)
+	if len(mm) == 0 {
+		return nil, paginate.PaginationData{}, true
+	}
+	return mm, paginatedData.Pagination, false
+
+}
+
+func FetchOrdersFromDB(uploadId string, page int64, limit int64) ([]OrderObject, paginate.PaginationData, bool) {
+	var filters = make(map[string]string)
+	filters["orderDetails.status"] = "NEW"
+	filters["uploadId"] = uploadId
+	log.Println("filters: ", filters)
+	return FindBy(filters, page, limit)
+
 }

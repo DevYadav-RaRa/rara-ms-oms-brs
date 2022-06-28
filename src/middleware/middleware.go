@@ -17,7 +17,7 @@ func init() {
 
 		x := models.OrderObject{}
 		var err error
-		x.OrderDetails.OrderId, err = primitive.ObjectIDFromHex(c.Param("id"))
+		x.Id, err = primitive.ObjectIDFromHex(c.Param("id"))
 		if err != nil {
 			fmt.Fprintf(c, "Not a valid id")
 		}

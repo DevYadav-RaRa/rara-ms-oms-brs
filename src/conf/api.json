@@ -1,0 +1,95 @@
+{
+  "tenantToken": "142345",
+  "businessDetails": {
+    "businessName": "BRS Org.",
+    "accountNumber": "BANK123456",
+    "serviceType": "Testing",
+    "serviceId": "01"
+  },
+  "orders": [
+    {
+      "trackingId": "96741235",
+      "pickupDetails": {
+        "senderDetails": {
+          "name": "Incharge",
+          "phone": "777XXX66666",
+          "email": "incharge@gmail.com"
+        },
+        "locationDetails": {
+          "locationName": "MALL AREA",
+          "address": "6, Jl. Peta Selatan No.50a, RT.6/RW.3, Kalideres, Kec. Kalideres, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11840, Indonesia",
+          "subDistrict": "Kalideres",
+          "district": "Kalideres",
+          "city": "Kota Jakarta Barat",
+          "postalCode": "11840",
+          "geoPoint": {
+            "lat": -6.6666,
+            "lng": 106.444
+          },
+          "addressType": "Home, Office, Mall",
+          "province": "Daerah Khusus Ibukota Jakarta"
+        },
+        "expectedPuDateandTime": "13-02-2022-11:57",
+        "slot": "slot 1, slot 2, slot 3",
+        "puNote": "wadsfv fdg esdfg"
+      },
+      "dropoffDetails": {
+        "recipientDetails": {
+          "name": "Recipient",
+          "phone": "975XXX66666",
+          "email": "recipient@gmail.com"
+        },
+        "locationDetails": {
+          "locationName": "MALL AREA",
+          "address": "6, Jl. Peta Selatan No.50a, RT.6/RW.3, Kalideres, Kec. Kalideres, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11840, Indonesia",
+          "subDistrict": "Kalideres",
+          "district": "Kalideres",
+          "city": "Kota Jakarta Barat",
+          "postalCode": "11840",
+          "geoPoint": {
+            "lat": -6.6666,
+            "lng": 106.444
+          },
+          "addressType": "Home, Office, Mall",
+          "province": "Daerah Khusus Ibukota Jakarta"
+        },
+        "reqDlTime": "13-02-2022-11:57",
+        "dlNote": "esdfg erdfg erdfg"
+      },
+      "packageDetails": {
+        "packageSize": "Small",
+        "packageDescription": "Description",
+        "packageValue": "1000",
+        "numberofPiece": 3,
+        "dimensions": {
+          "length": 10,
+          "width": 20,
+          "height": 10
+        },
+        "volWeight": 2,
+        "billableWeight": 2.5,
+        "weightIndex": 0
+      },
+      "paymentDetails": {
+        "paymentMethod": "COD",
+        "price": 1000
+      },
+      "items": [
+        {
+          "orderId": "",
+          "pieceId": "2345",
+          "weight": 3,
+          "dimensions": {
+            "length": 10,
+            "width": 20,
+            "height": 10
+          },
+          "volWeight": 2,
+          "billableWeight": 2.5,
+          "weightIndex": 1,
+          "price": 1000
+        }
+      ]
+    }
+  ]
+}

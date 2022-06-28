@@ -3,10 +3,11 @@ package sqs
 import (
 	"context"
 	"fmt"
+	"time"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sqs"
-	"time"
 )
 
 var _ MessageClient = SQS{}
@@ -39,7 +40,7 @@ func (s SQS) Send(ctx context.Context, req *SendRequest) (string, error) {
 		MessageAttributes: attrs,
 		MessageBody:       aws.String(req.Body),
 		QueueUrl:          aws.String(req.QueueURL),
-		MessageGroupId:   aws.String("Producer_Queue"),
+		MessageGroupId:    aws.String("Producer_Queue"),
 	})
 	if err != nil {
 		return "", fmt.Errorf("send: %w", err)
