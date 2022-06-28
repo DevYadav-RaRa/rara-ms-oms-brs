@@ -2,32 +2,90 @@ package conf
 
 import (
 	"fmt"
-	"io/ioutil"
+	"log"
+	"os"
 
+	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/aws/sqs"
 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/framework"
+	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/models"
+	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/services"
+	awsqs "github.com/aws/aws-sdk-go/service/sqs"
 )
 
-func TestBatchCreation() {
-	b, err := ioutil.ReadFile("./payload.json") // just pass the file name
+type ApiResponse struct {
+	Message     string        `json:"message" bson:"message"`
+	OrderStatus []OrderStatus `json:"ordersStatus" bson:"ordersStatus"`
+}
+
+type OrderStatus struct {
+	TrackingId string `json:"trackingId" bson:"trackingId"`
+	Message    string `json:"message" bson:"message"`
+	Status     bool   `json:"status" bson:"status"`
+}
+
+func startSQSConsumer(appCtx framework.Framework) {
+	go sqs.CreateContinuousConsumer(
+		os.Getenv("AWS_KEY"),
+		os.Getenv("AWS_SECRET"),
+		os.Getenv("AWS_REGION"),
+		os.Getenv("OMS_BRS_ORDER_QUEUE"),
+		4,
+		1,
+		sqs.SyncConsumer,
+		func(msg *awsqs.Message) error {
+			log.Println(*msg.Body)
+			err := services.OnSQSMessageOrderList(*msg.Body)
+			return err
+		},
+	)
+	appCtx.Info("SQS Consumers initialized.")
+}
+
+func ConsumeApiOrders(apiOrder string) {
+	var resp ApiResponse
+	var demoApi models.ApiPayload
+
+	err := demoApi.FromJSONString(apiOrder)
 	if err != nil {
-		fmt.Print("Bootstrap error 1", err)
+		resp.Message = "Invalid API Request Body, Error: " + err.Error()
 		return
 	}
-	fmt.Println(string(b), "Hello")
-	fmt.Println(string(b))
 
+	fmt.Println("-------------------------------------------")
+	fmt.Println("-------------------------------------------")
+	fmt.Println("-------------------------------------------")
+
+	framework.Logs("Calling Iam for Authentication")
+	var req models.IamRequest
+	req.TenantToken = demoApi.TenantToken
+	req.BusinessDetails = demoApi.BusinessDetails
+	IamAuth := req.GetIamAuthentication("BusinessHeader")
+
+	framework.Logs("Iam Response: ")
+	fmt.Println(IamAuth)
+
+	if !IamAuth.Status {
+		resp.Message = "Rejected from Iam"
+		return
+	}
+
+	framework.Logs("Authenticated from Iam")
+	resp.Message = "Orders Processing"
+
+	framework.Logs("Pushing to Queue")
+	res := sqs.Produce(demoApi)
+	fmt.Print("SQS Response: ")
+	framework.Logs(res)
+	framework.Logs("Pushed to Queue")
+	return
 }
 
 func Bootstrap(appCtx framework.Framework) {
-	fmt.Println("Running Bootstrap...")
+	framework.Logs("Running Bootstrap...")
+	startSQSConsumer(appCtx)
+	//s3config.GetPresignedUrl()
+	//a, b, _ := models.FetchOrdersFromDB("124", 1, 2)
+	services.Processing("124", 2)
 
-	// test if S2 Geo is available else exit with error
-	// testS2GeometryOnBoot(appCtx)
-	// start listening to queue
-	//startSQSConsumer(appCtx)
-	// testSQSProducer()
-	// inserting demo data..
-	// insertDefault(appCtx)
-	//TestBatchCreation()
-	fmt.Println("App is ready!")
+	framework.Logs("App is ready!")
 }

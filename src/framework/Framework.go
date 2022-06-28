@@ -3,6 +3,7 @@ package framework
 import (
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/fatih/color"
 	routing "github.com/qiangxue/fasthttp-routing"
@@ -128,8 +129,27 @@ func (f *Framework) Warn(message interface{}) {
 }
 
 func (f *Framework) Log(emblem string, message interface{}) {
-	bold := color.New(color.Bold).SprintFunc()
-	fmt.Printf(bold("%s %+v\n"), bold(emblem), message)
+	var clr color.Attribute
+	switch emblem {
+	case "[ERROR]":
+		clr = color.FgRed
+	case "[WARNING]":
+		clr = color.FgYellow
+	case "[INFO]":
+		clr = color.FgGreen
+	case "[DEBUG]":
+		clr = color.FgBlue
+	case "[TRACE]":
+		clr = color.FgMagenta
+	case "[FRAMEWORK]":
+		clr = color.FgCyan
+	}
+	bold := color.New(color.Bold, clr).SprintFunc()
+	fmt.Printf(bold("%s %s %+v\n"), bold(emblem), time.Now().String(), message)
+}
+
+func Logs(message string) {
+	fmt.Printf("%s \033[1;34m%s\033[0m\n", time.Now().String(), message)
 }
 
 func (f *Framework) GetBaseDir() string {

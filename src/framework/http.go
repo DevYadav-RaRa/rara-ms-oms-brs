@@ -18,7 +18,8 @@ func (h *HTTPSystem) init() {
 }
 
 func (h *HTTPSystem) listen() {
-	fmt.Println("[HTTP] Listening on port " + h.Port)
+	fmt.Printf("\033[1;34m%s\033[0m", "[HTTP] ")
+	fmt.Printf("Listening on port %+v\n", h.Port)
 	panic(fasthttp.ListenAndServe(":"+h.Port, h.Router.HandleRequest))
 }
 

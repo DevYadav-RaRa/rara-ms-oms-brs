@@ -11,7 +11,7 @@ import (
 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/models"
 )
 
-func Produce(obj models.OrderObject) string {
+func Produce(obj models.ApiPayload) string {
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
@@ -29,10 +29,10 @@ func Produce(obj models.OrderObject) string {
 	SQSclient := NewSQS(ses, 5*time.Second)
 
 	var attributes []Attribute = make([]Attribute, 0)
-	bat, _ := json.Marshal(obj)
+	ord, _ := json.Marshal(obj)
 	atb := Attribute{
-		Key:   "batch",
-		Value: string(bat),
+		Key:   "Status",
+		Value: "Order Sent to OMS-OAS",
 		Type:  "String",
 	}
 
@@ -40,8 +40,8 @@ func Produce(obj models.OrderObject) string {
 
 	// making send request
 	req := SendRequest{
-		QueueURL:   os.Getenv("AWS_PRODUCER_QUEUE"),
-		Body:       "BATCH SENT TO MONOLITH SERVER",
+		QueueURL:   os.Getenv("OMS_BRS_ORDER_QUEUE"),
+		Body:       string(ord),
 		Attributes: attributes,
 	}
 
