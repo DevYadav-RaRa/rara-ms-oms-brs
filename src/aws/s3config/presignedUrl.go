@@ -1,4 +1,4 @@
-package s3
+package s3config
 
 import (
 	"log"
@@ -10,6 +10,7 @@ import (
 	"github.com/aws/aws-sdk-go/service/s3"
 )
 
+//x-amz-acl
 func GetPresignedUrl() string {
 	AWS_BUCKET := os.Getenv("AWS_BUCKET")
 	AWS_KEY := os.Getenv("AWS_KEY")
@@ -29,9 +30,11 @@ func GetPresignedUrl() string {
 
 	svc := s3.New(ses)
 
+	var imageKey string = "abc.png"
+
 	req, _ := svc.PutObjectRequest(&s3.PutObjectInput{
 		Bucket: &AWS_BUCKET,
-		Key:    &AWS_KEY,
+		Key:    &imageKey,
 		ACL:    &ACL,
 	})
 

@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/aws/s3"
+	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/aws/s3config"
 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/framework"
 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/models"
 	routing "github.com/qiangxue/fasthttp-routing"
@@ -46,5 +46,5 @@ func CsvMiddleware(c *routing.Context) error {
 	}
 	framework.Logs("Authenticated from Iam")
 
-	return errors.New(s3.GetPresignedUrl())
+	return errors.New(s3config.GetPresignedUrl())
 }

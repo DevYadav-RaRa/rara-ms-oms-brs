@@ -2,11 +2,19 @@ package models
 
 import (
 	"fmt"
+	"log"
 	"time"
 
+	paginate "github.com/gobeam/mongo-go-pagination"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
+
+func init() {
+	log.SetPrefix("LOG: ")
+	log.SetFlags(log.Ldate | log.Lmicroseconds | log.Llongfile)
+	log.Println("init started")
+}
 
 const db_name = "oms"
 
@@ -14,6 +22,7 @@ const collection_name = "orders"
 
 type OrderObject struct {
 	Id              primitive.ObjectID `json:"_id" bson:"_id"`
+	UploadId        string             `json:"uploadId" bson:"uploadId"`
 	TenantToken     string             `json:"tenantToken" bson:"tenantToken"`
 	BusinessDetails BusinessDetails    `json:"businessDetails" bson:"businessDetails"`
 	OrderDetails    OrderDetails       `json:"orderDetails" bson:"orderDetails"`
@@ -228,4 +237,44 @@ func (obj *OrderObject) Save() (bool, error) {
 	}
 	fmt.Println(res.ModifiedCount)
 	return true, err
+}
+
+func FindBy(filters map[string]string, page int64, limit int64) ([]OrderObject, paginate.PaginationData, bool) {
+	err, ctx, appCtx, db, cancel := getDbContext(db_name, 15*time.Second)
+	defer cancel()
+	var mm []OrderObject
+	if err != nil {
+		appCtx.Error(err)
+		return nil, paginate.PaginationData{}, true
+	}
+	log.Println("I am here")
+
+	// fil := bson.M{
+	// 	"uploadId":            "124",
+	// 	"orderDetails.status": "NEW",
+	// }
+
+	projection := bson.M{}
+
+	collection := db.Collection(collection_name)
+	paginatedData, err := paginate.New(collection).Context(ctx).Limit(limit).Page(page).Select(projection).Filter(filters).Decode(&mm).Find()
+	if err != nil {
+		log.Println("Error getting paginated data: ", err)
+		return nil, paginate.PaginationData{}, true
+	}
+	//log.Println("Order data: ", mm)
+	if len(mm) == 0 {
+		return nil, paginate.PaginationData{}, true
+	}
+	return mm, paginatedData.Pagination, false
+
+}
+
+func FetchOrdersFromDB(uploadId string, page int64, limit int64) ([]OrderObject, paginate.PaginationData, bool) {
+	var filters = make(map[string]string)
+	filters["orderDetails.status"] = "NEW"
+	filters["uploadId"] = uploadId
+	log.Println("filters: ", filters)
+	return FindBy(filters, page, limit)
+
 }

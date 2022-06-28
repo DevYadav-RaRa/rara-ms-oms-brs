@@ -83,5 +83,9 @@ func ConsumeApiOrders(apiOrder string) {
 func Bootstrap(appCtx framework.Framework) {
 	framework.Logs("Running Bootstrap...")
 	startSQSConsumer(appCtx)
+	//s3config.GetPresignedUrl()
+	//a, b, _ := models.FetchOrdersFromDB("124", 1, 2)
+	services.Processing("124", 2)
+
 	framework.Logs("App is ready!")
 }

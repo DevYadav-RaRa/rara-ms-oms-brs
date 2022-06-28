@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/conf"
+	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/constants"
 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/framework"
 	"github.com/RaRa-Delivery/rara-ms-boilerplate/src/helpers"
 	routing "github.com/qiangxue/fasthttp-routing"
@@ -11,12 +12,12 @@ import (
 
 func InitApis(appCtx framework.Framework) {
 
-	appCtx.Router.Post("/orders", func(c *routing.Context) error {
+	appCtx.Router.Post(constants.DS+constants.ORDERS, func(c *routing.Context) error {
 		conf.ConsumeApiOrders(string(c.PostBody()))
-		return errors.New(string("Done"))
+		return errors.New(string(constants.DONE))
 	})
 
-	appCtx.Router.Post("/orders/csv", func(c *routing.Context) error {
+	appCtx.Router.Post(constants.DS+constants.ORDERS+constants.DS+constants.CSV, func(c *routing.Context) error {
 		return helpers.CsvMiddleware(c)
 	})
 }
